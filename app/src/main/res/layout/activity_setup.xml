@@ -144,7 +144,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="number"
-            android:text="10"
+            android:text="0"
             app:layout_constraintStart_toEndOf="@+id/btn_alt_minus"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
