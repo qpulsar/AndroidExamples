@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CounterPlus</string>
+    <string name="txt_setup">Setup</string>
+</resources>
