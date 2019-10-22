@@ -14,6 +14,14 @@ public class Setup {
     boolean lowerVibration = true;
     boolean lowerPlaySound = true;
 
+    final String CURRENT_COUNT = "currentCount";
+    final String MAX_LIMIT = "maxLimit";
+    final String MIN_LIMIT = "minLimit";
+    final String UPPER_VIBRATION = "upperVibration";
+    final String UPPER_PLAYSOUND = "upperPlaySound";
+    final String LOWER_VIBRATION = "lowerVibration";
+    final String LOWER_PLAYSOUND = "lowerPlaySound";
+
 
     static Setup setup = null;
 
@@ -22,37 +30,38 @@ public class Setup {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    private Setup(Context context){
+    private Setup(Context context) {
         this.context = context;
-        sharedPreferences = context.getSharedPreferences("Setup",0);
+        sharedPreferences = context.getSharedPreferences("Setup", 0);
         editor = sharedPreferences.edit();
     }
 
-    public static Setup getInstance(Context context){
-        if (setup == null){
+    public static Setup getInstance(Context context) {
+        if (setup == null) {
             setup = new Setup(context);
         }
-        return  setup;
+        return setup;
     }
 
-    public void saveValues(){
-        editor.putInt("currentCount", getCurrentCount());
-        editor.putInt("maxLimit",getMaxLimit());
-        editor.putInt("minLimit",getMinLimit());
-        editor.putBoolean("upperVibration",isUpperVibration());
-        editor.putBoolean("upperPlaySound",isUpperPlaySound());
-        editor.putBoolean("lowerVibration",isLowerVibration());
-        editor.putBoolean("lowerPlaySound",isLowerPlaySound());
+    public void saveValues() {
+        editor.putInt(CURRENT_COUNT, getCurrentCount());
+        editor.putInt(MAX_LIMIT, getMaxLimit());
+        editor.putInt(MIN_LIMIT, getMinLimit());
+        editor.putBoolean(UPPER_VIBRATION, isUpperVibration());
+        editor.putBoolean(UPPER_PLAYSOUND, isUpperPlaySound());
+        editor.putBoolean(LOWER_VIBRATION, isLowerVibration());
+        editor.putBoolean(LOWER_PLAYSOUND, isLowerPlaySound());
         editor.commit();
     }
-    public void readValues(){
-        setCurrentCount(sharedPreferences.getInt("currentCount",0));
-        setMaxLimit(sharedPreferences.getInt("maxLimit",0));
-        setMinLimit(sharedPreferences.getInt("minLimit",0));
-        setUpperVibration(sharedPreferences.getBoolean("upperVibration",true));
-        setUpperPlaySound(sharedPreferences.getBoolean("upperPlaySound",true));
-        setLowerVibration(sharedPreferences.getBoolean("lowerVibration",true));
-        setLowerPlaySound(sharedPreferences.getBoolean("lowerPlaySound",true));
+
+    public void readValues() {
+        setCurrentCount(sharedPreferences.getInt(CURRENT_COUNT, 0));
+        setMaxLimit(sharedPreferences.getInt(MAX_LIMIT, 0));
+        setMinLimit(sharedPreferences.getInt(MIN_LIMIT, 0));
+        setUpperVibration(sharedPreferences.getBoolean(UPPER_VIBRATION, true));
+        setUpperPlaySound(sharedPreferences.getBoolean(UPPER_PLAYSOUND, true));
+        setLowerVibration(sharedPreferences.getBoolean(LOWER_VIBRATION, true));
+        setLowerPlaySound(sharedPreferences.getBoolean(LOWER_PLAYSOUND, true));
     }
 
     public int getMaxLimit() {
@@ -60,7 +69,8 @@ public class Setup {
     }
 
     public void setMaxLimit(int maxLimit) {
-        this.maxLimit = maxLimit;
+        if (maxLimit > minLimit)
+            this.maxLimit = maxLimit;
     }
 
     public int getMinLimit() {
@@ -68,7 +78,8 @@ public class Setup {
     }
 
     public void setMinLimit(int minLimit) {
-        this.minLimit = minLimit;
+        if (minLimit < maxLimit)
+            this.minLimit = minLimit;
     }
 
     public int getCurrentCount() {
