@@ -73,8 +73,8 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int v = Integer.valueOf(lowText.getText().toString());
-                v++;
                 if (v < Integer.valueOf(upText.getText().toString())) {
+                    v++;
                     lowText.setText(String.valueOf(v));
                 } else {
                     Toast.makeText(getApplicationContext(), "Maximum değerden büyük olamaz!", Toast.LENGTH_SHORT).show();
